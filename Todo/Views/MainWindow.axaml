@@ -10,105 +10,13 @@
         Icon="/Assets/logo192.png"
         Width="400"
         Height="720"
-        Background="LightPink"
         Title="Microsoft To Do">
-    
     <Design.DataContext>
         <vm:MainWindowViewModel/>
     </Design.DataContext>
-    <Grid>
-        <StackPanel Margin="10">
-            <Button Height="30" Width="34" Background ="Transparent" Padding="4" Command="{Binding MenuCommand}">
-                    <Canvas >
-                        <Rectangle Canvas.Top="16" Fill="White" Height="1" Width="25"/>
-                        <Rectangle Canvas.Top="10" Fill="White" Height="1" Width="25"/>
-                        <Rectangle Canvas.Top="4" Fill="White" Height="1" Width="25"/>
-                    </Canvas>
-            </Button>
-            <StackPanel Margin ="4 13 0 0 ">
-                <TextBlock  FontFamily="SimHei" Foreground="IndianRed" FontSize="30" FontWeight="Black">我的一天</TextBlock>
-                <TextBlock  FontFamily="SimHei" Foreground="IndianRed" Margin ="5 0 0 0 ">9月17日, 星期五</TextBlock>
-            </StackPanel>
-            
-        </StackPanel>
-        <Panel Opacity="0.2" Classes.IsShow="{Binding MenuIsShow}"
-                    Classes.IsNotShow="{Binding !MenuIsShow}"
-                    Background="Black">
-            <Panel.Styles>
-                <Style Selector="Panel.IsShow">
-                    <Style.Animations>
-                        <Animation Duration="0:0:0.3">
-                            <KeyFrame Cue="100%">
-                                <Setter Property="IsVisible" Value="True"></Setter>
-                                <Setter Property="Opacity" Value="0.2"></Setter>
-                            </KeyFrame>
-                            <KeyFrame Cue="0%">
-                                <Setter Property="IsVisible" Value="False"></Setter>
-                                <Setter Property="Opacity" Value="0.0"></Setter>
-                            </KeyFrame>
-                        </Animation>
-                    </Style.Animations>
-                    <Setter Property="IsVisible" Value="True"></Setter>
-                </Style>
-                <Style Selector="Panel.IsNotShow">
-                    <Style.Animations>
-                        <Animation Duration="0:0:0.15">
-                            <KeyFrame Cue="0%">
-                                <Setter Property="IsVisible" Value="True"></Setter>
-                                <Setter Property="Opacity" Value="0.2"></Setter>
-                            </KeyFrame>
-                            <KeyFrame Cue="100%">
-                                <Setter Property="IsVisible" Value="False"></Setter>
-                                <Setter Property="Opacity" Value="0.0"></Setter>
-                            </KeyFrame>
-                        </Animation>
-                    </Style.Animations>
-                    <Setter Property="IsVisible" Value="False"></Setter>
-                </Style>
-            </Panel.Styles>
-            <Button Classes="CancelButton" Background="Transparent" BorderBrush="{x:Null}" Opacity="0.00001" Command="{Binding CloseMenu}"
-					 HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-              
-            </Button>
-        </Panel>
-        <component:LeftMenu  Classes.Out="{Binding LeftMenuClassOut}"
-                             Classes.In="{Binding LeftMenuClassIn}"
-                             Classes.Init="{Binding LeftMenuInit}"
-                             HorizontalAlignment="Left"  Width="300" Background="White">
-            
-            <component:LeftMenu.Styles>
-                <Style Selector="component|LeftMenu.In">
-                    <Style.Animations>
-                        <Animation Duration="0:0:0.3"> 
-                            <KeyFrame Cue="0%">
-                                <Setter Property="Margin" Value="-300 0 0 0"/>
-                            </KeyFrame>
-                            <KeyFrame Cue="100%">
-                                <Setter Property="Margin" Value="0 0 0 0"/>
-                            </KeyFrame>
-                        </Animation>
-                    </Style.Animations>
-                    <Setter Property="Margin" Value="0 0 0 0"/>
-                </Style>
-                
-                <Style Selector="component|LeftMenu.Out">
-                    <Style.Animations>
-                        <Animation Duration="0:0:0.15"> 
-                            <KeyFrame Cue="0%">
-                                <Setter Property="Margin" Value="0 0 0 0"/>
-                            </KeyFrame>
-                            <KeyFrame Cue="100%">
-                                <Setter Property="Margin" Value="-300 0 0 0"/>
-                            </KeyFrame>
-                        </Animation>
-                    </Style.Animations>
-                    <Setter Property="Margin" Value="-300 0 0 0"/>
-                </Style>
-                <Style Selector="component|LeftMenu.Init">
-                    <Setter Property="Margin" Value="-300 0 0 0"></Setter>
-                </Style>
-                
-            </component:LeftMenu.Styles>
-        </component:LeftMenu>
+	<Grid>
+		<component:MyOneDay> </component:MyOneDay>
+		<component:TaskDetail> </component:TaskDetail>
+		<component:LeftMenu IsVisible="{Binding IsShowLeftMenu}"></component:LeftMenu>
     </Grid>
 </Window>

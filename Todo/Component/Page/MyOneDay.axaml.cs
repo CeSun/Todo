@@ -1,13 +1,12 @@
-﻿using Avalonia;
+using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
-using ReactiveUI;
 
 namespace Todo.Component
 {
-    public class LeftMenu : UserControl
+    public  class MyOneDay : UserControl
     {
-        public LeftMenu()
+        public MyOneDay()
         {
             InitializeComponent();
         }
@@ -16,10 +15,5 @@ namespace Todo.Component
         {
             AvaloniaXamlLoader.Load(this);
         }
-
-    }
-
-    public class LeftMenuVM : ReactiveObject
-    {
     }
 }

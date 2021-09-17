@@ -8,72 +8,24 @@ namespace Todo.ViewModels
 {
     public class MainWindowViewModel : ViewModelBase
     {
-        public string Greeting => "Welcome to Avalonia!";
 
-        private bool _LeftMenuClassIn = false;
-        public bool LeftMenuClassIn
+        bool _IsShowLeftMenu = true;
+        bool _CanSeeLeftMenu = false;
+        public bool CanSeeLeftMenu
         {
-            get
-            {
-                return _LeftMenuClassIn;
-            }
-            set
-            {
-                this.RaiseAndSetIfChanged(ref _LeftMenuClassIn, value);
-            }
+            get { return _CanSeeLeftMenu; }
+            set { this.RaiseAndSetIfChanged(ref _CanSeeLeftMenu, value); }
         }
 
-        private bool _MenuIsShow = false;
-        public bool MenuIsShow
+        public bool IsShowLeftMenu
         {
-            get
-            {
-                return _MenuIsShow;
-            }
-            set
-            {
-                this.RaiseAndSetIfChanged(ref _MenuIsShow, value);
-            }
+            get { return _IsShowLeftMenu; }
+            set { this.RaiseAndSetIfChanged(ref _IsShowLeftMenu, value); }
         }
-        private bool _LeftMenuInit = true;
-        public bool LeftMenuInit 
+        public void LeftMenuOut()
         {
-            get
-            {
-                return _LeftMenuInit;
-            }
-            set
-            {
-                this.RaiseAndSetIfChanged(ref _LeftMenuInit, value);
-            }
-        }
-        public void MenuCommand()
-        {
-            LeftMenuInit = false;
-            MenuIsShow = true;
-            LeftMenuClassIn = true;
-            LeftMenuClassOut = false;
-        }
-        
-        
-        
-        private bool _LeftMenuClassOut = false;
-        public bool LeftMenuClassOut
-        {
-            get
-            {
-                return _LeftMenuClassOut;
-            }
-            set
-            {
-                this.RaiseAndSetIfChanged(ref _LeftMenuClassOut, value);
-            }
-        }
-        public void CloseMenu()
-        {
-            MenuIsShow = false;
-            LeftMenuClassOut = true;
-            LeftMenuClassIn = false;
+
+            IsShowLeftMenu = false;
         }
     }
 }
