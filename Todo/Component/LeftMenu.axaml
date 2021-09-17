@@ -1,0 +1,19 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="Todo.Component.LeftMenu"
+            >
+    <Grid Background="White">
+        <StackPanel Margin="10">
+            <Button Height="30" Width="34" Background="Transparent" Padding="4">
+                <Canvas >
+                    <Rectangle Canvas.Top="16" Fill="Gray" Height="1" Width="25"/>
+                    <Rectangle Canvas.Top="10" Fill="Gray" Height="1" Width="25"/>
+                    <Rectangle Canvas.Top="4" Fill="Gray" Height="1" Width="25"/>
+                </Canvas>
+            </Button>
+        </StackPanel>
+    </Grid>
+</UserControl>

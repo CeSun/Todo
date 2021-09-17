@@ -1,6 +1,7 @@
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
+using Avalonia.Media;
 
 namespace Todo.Views
 {
@@ -18,6 +19,8 @@ namespace Todo.Views
         private void InitializeComponent()
         {
             AvaloniaXamlLoader.Load(this);
+            // Background = Brushes.DeepPink
         }
+
     }
 }
