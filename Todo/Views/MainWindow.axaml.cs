@@ -6,6 +6,7 @@ using Avalonia.Media;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Todo.Apis;
 using Todo.ViewModels;
 
 namespace Todo.Views
@@ -43,6 +44,7 @@ namespace Todo.Views
         
         public async Task Auth()
         {
+
             await Task.Delay(1);
             MainWindowViewModel vm = (MainWindowViewModel)DataContext;
             if (Width >= CanSeeLeftMenuWidth)
@@ -53,17 +55,39 @@ namespace Todo.Views
             {
                 vm.CanSeeLeftMenu = false;
             }
-            if (LaunchArg.Code == null)
+            if (LaunchArg.Code == null && GlobalValue.Instance.AuthInfo == null)
             {
-                var tip = new PleaseLogin();
-                var subPoint = new PixelPoint
-                    (
-                    x: (int)(this.Position.X + this.Width / 2),
-                    y: (int)(this.Position.Y + this.Height / 2)
-                    );
-                tip.SetPosition(subPoint);
-                tip.ShowDialog(this);
+                ThrowNoLogin();
+                return;
             }
+            if (LaunchArg.Code != null)
+            {
+                var response = await AuthApi.AuthAsync(LaunchArg.Code);
+                GlobalValue.Instance.AuthInfo = response;
+            }
+            else
+            {
+                await AuthApi.Update();
+            }
+            
+            await Update();
+        }
+
+        public async Task Update()
+        {
+
+        }
+
+        private void ThrowNoLogin()
+        {
+            var tip = new PleaseLogin();
+            var subPoint = new PixelPoint
+                (
+                x: (int)(this.Position.X + this.Width / 2),
+                y: (int)(this.Position.Y + this.Height / 2)
+                );
+            tip.SetPosition(subPoint);
+            tip.ShowDialog(this);
         }
         protected override void OnGotFocus(GotFocusEventArgs e)
         {

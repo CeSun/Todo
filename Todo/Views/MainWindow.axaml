@@ -158,6 +158,6 @@
 				</Style>
 			</component:LeftMenu.Styles>
 			</component:LeftMenu>
-		
+			<ProgressBar IsIndeterminate="False" VerticalAlignment="Top" Maximum="100" Minimum="0" Value="{Binding ProcessBarValue}" HorizontalAlignment="Stretch"></ProgressBar>
 	</Grid>
 </Window>

@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using Newtonsoft.Json;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 
 namespace Todo
@@ -17,12 +18,16 @@ namespace Todo
 
     public class AuthResponse
     {
+        [JsonProperty("access_token")]
         public string? AccessToken { get; set; }
-
+        [JsonProperty("refresh_token")]
         public string? RefreshTokn { get; set; }
-
+        [JsonProperty("scope")]
         public string? Scope { get; set; }
+        [JsonProperty("expires_in")]
         public int ExpiresIn { get; set; }
+        
+        public long GetTime { get; set; }
     }
 
     public class Util {

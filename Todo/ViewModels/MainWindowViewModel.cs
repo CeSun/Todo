@@ -17,8 +17,14 @@ namespace Todo.ViewModels
         private bool _CanSeeLeftMenu = false;
         private bool _CanSeeRightMenu = false;
         public bool _PanelIsShow = false;
+        int _ProcessBarValue;
+        public int ProcessBarValue
+        {
+            get => _ProcessBarValue;
+            set => this.RaiseAndSetIfChanged(ref _ProcessBarValue, value);
+            
+        }
 
- 
         public bool CanSeeLeftMenu
         {
             get { return _CanSeeLeftMenu; }
