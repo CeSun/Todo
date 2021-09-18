@@ -23,13 +23,15 @@ namespace Todo.Views
                 if (Width >= CanSeeLeftMenuWidth)
                 {
                     vm.CanSeeLeftMenu = true;
+                    vm.IsShowLeftMenu = true;
                 }
                 else
                 {
+                    vm.IsShowLeftMenu = false;
                     vm.CanSeeLeftMenu = false;
                 }
+                Console.WriteLine(vm.CanSeeLeftMenu);
             });
-
 #if DEBUG
             this.AttachDevTools();
 #endif
