@@ -6,7 +6,7 @@
              x:Class="Todo.Component.LeftMenu"
              Width="280"
              Background="White"
-             BorderBrush="Gray" BorderThickness="0 1 1 0"
+             BorderBrush="Gray" BorderThickness="0 0 1 0"
              HorizontalAlignment="Stretch">
 
     <Grid>

@@ -1,8 +1,6 @@
 ﻿using System;
 using System.IO;
-using System.Windows;
 using Avalonia;
-using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.ReactiveUI;
 using Newtonsoft.Json;
 
@@ -15,6 +13,7 @@ namespace Todo
         // yet and stuff might break.
         public static void Main(string[] args)
         {
+
             ReadConfig();
             BuildAvaloniaApp()
                 .StartWithClassicDesktopLifetime(args);
@@ -29,7 +28,7 @@ namespace Todo
 
         public static void ReadConfig()
         {
-            var HomePath = System.Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+            var HomePath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
             var ConfigPath = HomePath + "/.TodoCrossPlatform";
             if (Directory.Exists(ConfigPath) == false)
             {
@@ -38,7 +37,8 @@ namespace Todo
             var ConfigFile = ConfigPath + "/.Cache.ini";
             if(!File.Exists(ConfigFile))
             {
-                File.Create(ConfigFile);
+                var stream = File.Create(ConfigFile);
+                stream.Close();
             }
             StreamReader sr = new StreamReader(ConfigFile);
             var text = sr.ReadToEnd();
@@ -56,7 +56,7 @@ namespace Todo
 
         public static void WriteConfig()
         {
-            var HomePath = System.Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+            var HomePath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
             var ConfigPath = HomePath + "/.TodoCrossPlatform";
             if (Directory.Exists(ConfigPath) == false)
             {

@@ -5,6 +5,7 @@ using Avalonia.Markup.Xaml;
 using Avalonia.Media;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Todo.ViewModels;
 
 namespace Todo.Views
@@ -32,14 +33,17 @@ namespace Todo.Views
                 }
                 Console.WriteLine(vm.CanSeeLeftMenu);
             });
+            _ = Auth();
+            
 #if DEBUG
             this.AttachDevTools();
 #endif
         }
-        protected override void OnGotFocus(GotFocusEventArgs e)
+        
+        
+        public async Task Auth()
         {
-            base.OnGotFocus(e);
-
+            await Task.Delay(1);
             MainWindowViewModel vm = (MainWindowViewModel)DataContext;
             if (Width >= CanSeeLeftMenuWidth)
             {
@@ -49,6 +53,22 @@ namespace Todo.Views
             {
                 vm.CanSeeLeftMenu = false;
             }
+            if (LaunchArg.Code == null)
+            {
+                var tip = new PleaseLogin();
+                var subPoint = new PixelPoint
+                    (
+                    x: (int)(this.Position.X + this.Width / 2),
+                    y: (int)(this.Position.Y + this.Height / 2)
+                    );
+                tip.SetPosition(subPoint);
+                tip.ShowDialog(this);
+            }
+        }
+        protected override void OnGotFocus(GotFocusEventArgs e)
+        {
+            base.OnGotFocus(e);
+            
         }
         private void MainWindow_PropertyChanged(object sender, AvaloniaPropertyChangedEventArgs e)
         {

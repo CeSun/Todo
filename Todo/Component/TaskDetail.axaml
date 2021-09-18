@@ -6,6 +6,8 @@
              x:Class="Todo.Component.TaskDetail"
              Width="360"
              HorizontalAlignment="Right"
-             Background="Green">
+             
+             Background="White"
+             BorderBrush="Gray" BorderThickness="1 0 0 0">
     Welcome to Avalonia!
 </UserControl>
