@@ -10,6 +10,7 @@ using System.Timers;
 
 namespace Todo.Apis
 {
+    /*
     public class AuthApi
     {
         public static Timer timer = new Timer();
@@ -102,5 +103,5 @@ namespace Todo.Apis
                 Console.WriteLine(e.StackTrace);
             }
         }
-    }
+    }*/
 }

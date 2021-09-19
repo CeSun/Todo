@@ -14,7 +14,8 @@
 		<vm:PleaseLoginViewModel/>
 	</Design.DataContext>
 	<StackPanel Margin="10">
-		<TextBlock  HorizontalAlignment="Stretch" Text="您还未登录！"></TextBlock>
-		<TextBlock  HorizontalAlignment="Stretch" Text="请在浏览器授权登录！"></TextBlock>
+		<TextBlock  HorizontalAlignment="Stretch" FontSize="20" Foreground="Red" Text="您还未登录！" TextAlignment="Center"></TextBlock>
+		<TextBlock  HorizontalAlignment="Stretch" MaxLines="10" TextWrapping="Wrap" TextTrimming="WordEllipsis" Text="{Binding LoginInfo}"></TextBlock>
+		<Button HorizontalAlignment="Center" Content="复制设备码" Command="{Binding CopyCode}"> </Button>
 	</StackPanel>
 </Window>

@@ -10,24 +10,11 @@ namespace Todo
         public AuthResponse? AuthInfo { get; set; }
     }
 
-    public class LaunchArg
-    {
-        public static string? Code { get; set; }
-    }
-
 
     public class AuthResponse
     {
         [JsonProperty("access_token")]
         public string? AccessToken { get; set; }
-        [JsonProperty("refresh_token")]
-        public string? RefreshTokn { get; set; }
-        [JsonProperty("scope")]
-        public string? Scope { get; set; }
-        [JsonProperty("expires_in")]
-        public int ExpiresIn { get; set; }
-        
-        public long GetTime { get; set; }
     }
 
     public class Util {

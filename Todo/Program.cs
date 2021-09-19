@@ -1,8 +1,10 @@
 ﻿using System;
 using System.IO;
+using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.ReactiveUI;
 using Newtonsoft.Json;
+using Todo.Apis;
 
 namespace Todo
 {
@@ -13,21 +15,6 @@ namespace Todo
         // yet and stuff might break.
         public static void Main(string[] args)
         {
-            if (args.Length >= 1)
-            {
-                Console.WriteLine(args[0]);
-                var para = args[0].Split("?");
-                if (para.Length >=2)
-                {
-                   var datas = para[1].Split("=");
-                    if (datas.Length >= 2)
-                    {
-
-                        LaunchArg.Code = datas[1];
-                        Console.WriteLine(LaunchArg.Code);
-                    }
-                }
-            }    
             ReadConfig();
             BuildAvaloniaApp()
                 .StartWithClassicDesktopLifetime(args);
