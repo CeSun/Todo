@@ -7,22 +7,38 @@
 			 HorizontalAlignment="Stretch"
 			 VerticalAlignment="Stretch">
 	<Grid>
+		<ProgressBar IsVisible="{Binding !LoginButtonCanPressed}" VerticalAlignment="Top" IsIndeterminate="True"> </ProgressBar>
 		<StackPanel Margin="25 -40 25 0" VerticalAlignment="Center" HorizontalAlignment="Center">
 			<TextBlock Foreground="#343434" HorizontalAlignment="Center" TextTrimming="WordEllipsis" TextAlignment="Center" TextWrapping="Wrap"  FontSize="25" Text="欢迎使用 MicroSoft To Do"></TextBlock>
-
 			<Panel Height="20">
 			</Panel>
+			
+		<StackPanel  IsVisible="{Binding !IsGetCode}">
 			<Image Height="{Binding LogoWidth}" Source="/Assets/welcome-center.png"></Image>
 			<Panel Height="20">
 			</Panel>
-			<Button  Background="#436AF2" HorizontalAlignment="Center" Width="245" Height="35" >
-				<TextBlock HorizontalAlignment="Center" Foreground="White" FontSize="17" VerticalAlignment="Center" TextAlignment="Center" Text="登录"></TextBlock>
+			<Button Command="{Binding Login}" IsEnabled="{Binding LoginButtonCanPressed}" Background="#436AF2" HorizontalAlignment="Center" Width="245" Height="35" >
+					<TextBlock  HorizontalAlignment="Center" Foreground="White" FontSize="17" VerticalAlignment="Center" TextAlignment="Center" Text="登录"></TextBlock>
 			</Button>
 			<Panel Height="20">
 			</Panel>
 			<TextBlock HorizontalAlignment="Center" TextTrimming="WordEllipsis" TextAlignment="Center"  TextWrapping="Wrap" Foreground="#656565"  FontSize="20" Text="请使用工作账户、学校账户或Microsoft账户登录"></TextBlock>
-
+			
+			</StackPanel>
+			<StackPanel IsVisible="{Binding IsGetCode}">
+				<TextBlock HorizontalAlignment="Left" TextTrimming="WordEllipsis" TextAlignment="Center"  TextWrapping="Wrap" Foreground="#343434"  FontSize="15" Text="{Binding LoginTips}">
+				</TextBlock>
+				<Panel Height="20">
+				</Panel>
+				<TextBox Background="Transparent"  FontSize="20" Text="{Binding UserCode}"></TextBox>
+				<Panel Height="20">
+				</Panel>
+				<Button Background="#436AF2" Command="{Binding CopyCode}" HorizontalAlignment="Center" >
+					<TextBlock HorizontalAlignment="Center" Foreground="White" FontSize="17" VerticalAlignment="Center" TextAlignment="Center" Text="复制验证码"></TextBlock>
+				</Button>
+			</StackPanel>
 		</StackPanel>
+
 		<Image Margin="0 0 0 30" Width="100" VerticalAlignment="Bottom" HorizontalAlignment="Center" Source="avares://Todo/Assets/RE1Mu3b.png"></Image>
 	</Grid>
 
