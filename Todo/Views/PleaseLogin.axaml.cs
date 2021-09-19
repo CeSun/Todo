@@ -21,6 +21,7 @@ namespace Todo.Views
         PleaseLoginViewModel vm = null;
         public async Task Open()
         {
+            return;
             await Task.Delay(1);
             try
             {

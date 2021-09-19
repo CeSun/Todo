@@ -17,6 +17,21 @@ namespace Todo.ViewModels
         private bool _CanSeeLeftMenu = false;
         private bool _CanSeeRightMenu = false;
         public bool _PanelIsShow = false;
+        private int _LogoWidth = 150;
+
+         public int LogoWidth
+        {
+            get => _LogoWidth;
+            set => this.RaiseAndSetIfChanged(ref _LogoWidth, value);
+        }
+
+        private bool _IsLogin = false;
+        public bool IsLogin
+        {
+            get => _IsLogin;
+            set => this.RaiseAndSetIfChanged(ref _IsLogin, value);
+        }
+
         int _ProcessBarValue;
         public int ProcessBarValue
         {

@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="Todo.Component.MyOneDay" >
-
+    
     <StackPanel Margin="10">
         <Button IsVisible="{Binding !CanSeeLeftMenu}" Height="30" Width="34" Background="Transparent" Padding="4"
                           Command="{Binding LeftMenuIn}">

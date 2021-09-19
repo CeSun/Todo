@@ -1,0 +1,29 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="Todo.Component.Login"
+			 HorizontalAlignment="Stretch"
+			 VerticalAlignment="Stretch">
+	<Grid>
+		<StackPanel Margin="25 -40 25 0" VerticalAlignment="Center" HorizontalAlignment="Center">
+			<TextBlock Foreground="#343434" HorizontalAlignment="Center" TextTrimming="WordEllipsis" TextAlignment="Center" TextWrapping="Wrap"  FontSize="25" Text="欢迎使用 MicroSoft To Do"></TextBlock>
+
+			<Panel Height="20">
+			</Panel>
+			<Image Height="{Binding LogoWidth}" Source="/Assets/welcome-center.png"></Image>
+			<Panel Height="20">
+			</Panel>
+			<Button  Background="#436AF2" HorizontalAlignment="Center" Width="245" Height="35" >
+				<TextBlock HorizontalAlignment="Center" Foreground="White" FontSize="17" VerticalAlignment="Center" TextAlignment="Center" Text="登录"></TextBlock>
+			</Button>
+			<Panel Height="20">
+			</Panel>
+			<TextBlock HorizontalAlignment="Center" TextTrimming="WordEllipsis" TextAlignment="Center"  TextWrapping="Wrap" Foreground="#656565"  FontSize="20" Text="请使用工作账户、学校账户或Microsoft账户登录"></TextBlock>
+
+		</StackPanel>
+		<Image Margin="0 0 0 30" Width="100" VerticalAlignment="Bottom" HorizontalAlignment="Center" Source="avares://Todo/Assets/RE1Mu3b.png"></Image>
+	</Grid>
+
+</UserControl>

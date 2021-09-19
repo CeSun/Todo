@@ -26,56 +26,50 @@ namespace Todo.Views
                 {
                     vm.CanSeeLeftMenu = true;
                     vm.IsShowLeftMenu = true;
+                    vm.LogoWidth = 330;
                 }
                 else
                 {
                     vm.IsShowLeftMenu = false;
                     vm.CanSeeLeftMenu = false;
+                    vm.LogoWidth = 150;
                 }
+
                 Console.WriteLine(vm.CanSeeLeftMenu);
             });
             _ = OnWindowInit();
-            _ = Auth();
-            
 #if DEBUG
             this.AttachDevTools();
 #endif
         }
-        
+        MainWindowViewModel vm;
         public async Task OnWindowInit()
         {
             await Task.Delay(1);
-            MainWindowViewModel vm = (MainWindowViewModel)DataContext;
+            vm = (MainWindowViewModel)DataContext;
             if (Width >= CanSeeLeftMenuWidth)
             {
                 vm.CanSeeLeftMenu = true;
+                vm.IsShowLeftMenu = true;
+                vm.LogoWidth = 330;
             }
             else
             {
                 vm.CanSeeLeftMenu = false;
+                vm.CanSeeLeftMenu = false;
+                vm.LogoWidth = 150;
             }
-            await Auth();
+            Auth();
         }
-        public async Task Auth()
+        public void Auth()
         {
            ThrowNoLogin();
         }
 
-        public async Task Update()
-        {
-
-        }
 
         private void ThrowNoLogin()
         {
-            var tip = new PleaseLogin() { DataContext = new PleaseLoginViewModel()};
-            var subPoint = new PixelPoint
-                (
-                x: (int)(this.Position.X + this.Width / 2),
-                y: (int)(this.Position.Y + this.Height / 2)
-                );
-            tip.SetPosition(subPoint);
-            tip.ShowDialog<PleaseLoginViewModel>(this);
+            vm.IsLogin = false;
         }
         protected override void OnGotFocus(GotFocusEventArgs e)
         {
