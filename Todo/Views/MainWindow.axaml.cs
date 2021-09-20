@@ -34,8 +34,6 @@ namespace Todo.Views
                     vm.CanSeeLeftMenu = false;
                     vm.LogoWidth = 150;
                 }
-
-                Console.WriteLine(vm.CanSeeLeftMenu);
             });
             _ = OnWindowInit();
 #if DEBUG
@@ -59,6 +57,7 @@ namespace Todo.Views
                 vm.CanSeeLeftMenu = false;
                 vm.LogoWidth = 150;
             }
+            vm.IsLogin = true;
             Auth();
         }
         public void Auth()

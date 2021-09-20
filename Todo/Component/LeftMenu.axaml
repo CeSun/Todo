@@ -9,18 +9,43 @@
              BorderBrush="Gray" BorderThickness="0 0 1 0"
              HorizontalAlignment="Stretch">
 
-    <Grid>
-        <StackPanel Margin="10">
-            <Button IsVisible="{Binding !CanSeeLeftMenu}" Height="30" Width="34" Background="Transparent" Padding="4"
+		<DockPanel  VerticalAlignment="Stretch" >
+			<Button Margin="10" DockPanel.Dock="Top" IsVisible="{Binding !CanSeeLeftMenu}" Height="30" Width="34" Background="Transparent" Padding="4"
 					Command="{Binding LeftMenuOut}">
-                <Canvas>
-                    <Rectangle Canvas.Top="16" Fill="Gray" Height="1" Width="25"/>
-                    <Rectangle Canvas.Top="10" Fill="Gray" Height="1" Width="25"/>
-                    <Rectangle Canvas.Top="4" Fill="Gray" Height="1" Width="25"/>
-                </Canvas>
-            </Button>
-            
-            
-        </StackPanel>
-    </Grid>
+				<Canvas >
+					<Rectangle Canvas.Top="16" Fill="Gray" Height="1" Width="25"/>
+					<Rectangle Canvas.Top="10" Fill="Gray" Height="1" Width="25"/>
+					<Rectangle Canvas.Top="4" Fill="Gray" Height="1" Width="25"/>
+				</Canvas>
+			</Button>
+			<Panel DockPanel.Dock="Top"  VerticalAlignment="Top"  Margin="10"/>
+			<DockPanel Margin="10" DockPanel.Dock="Top" VerticalAlignment="Top" Height="40" >
+				<Image VerticalAlignment="Stretch" Source="/Assets/avalonia-logo.ico"> </Image>
+				<DockPanel Margin="5" Height="35">
+					<TextBlock DockPanel.Dock="Top" FontSize="16" FontWeight="Medium" Text="{Binding User.DisplayName}"/>
+					<TextBlock DockPanel.Dock="Bottom" Foreground="Gray" FontSize="12" Text="{Binding User.Mail}"/>
+				</DockPanel>
+			</DockPanel>
+			<ScrollViewer DockPanel.Dock="Top"  VerticalAlignment="Stretch" >
+				<ListBox Items="{Binding Menu}"  SelectionMode="AlwaysSelected" SelectedIndex="{Binding Index}"  Background="Transparent">
+					
+					<ListBox.ItemTemplate>
+						<DataTemplate>
+							<DockPanel HorizontalAlignment="Stretch">
+								<Canvas DockPanel.Dock="Left" Width="25" Height="9" VerticalAlignment="Center">
+									<Rectangle Canvas.Top="0" Fill="#5C70BE" Height="1" Width="20"/>
+									<Rectangle Canvas.Top="4" Fill="#5C70BE" Height="1" Width="20"/>
+									<Rectangle Canvas.Top="8" Fill="#5C70BE" Height="1" Width="20"/>
+								</Canvas>
+								
+								<TextBlock Margin="10 0 0 0" Foreground="#212121" DockPanel.Dock="Left" FontSize="19" Text="{Binding}"></TextBlock>
+							</DockPanel>
+						</DataTemplate>
+					</ListBox.ItemTemplate>
+					
+					
+				</ListBox>
+			</ScrollViewer>
+		</DockPanel>
+	
 </UserControl>

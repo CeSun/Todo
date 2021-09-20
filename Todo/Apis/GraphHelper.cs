@@ -24,7 +24,26 @@ namespace Todo.Apis
         {
             var context = new TokenRequestContext(scopes);
             var response = await tokenCredential.GetTokenAsync(context);
+           
             return response.Token;
+        }
+
+        public static async Task<ITodoListsCollectionPage> GetTaskLists()
+        {
+            var lists=  await graphClient.Me.Todo.Lists.Request().GetAsync();
+            
+            return lists;
+        }
+
+        public static async Task<ITodoTaskListTasksCollectionPage> GetTaskList(string listId)
+        {
+            var lists = await graphClient.Me.Todo.Lists[listId].Tasks.Request().GetAsync();
+            return lists;
+        }
+
+        public static async Task<User> GetUser()
+        {
+            return await graphClient.Me.Request().GetAsync();
         }
     }
 }

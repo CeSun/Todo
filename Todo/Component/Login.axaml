@@ -36,6 +36,9 @@
 				<Button Background="#436AF2" Command="{Binding CopyCode}" HorizontalAlignment="Center" >
 					<TextBlock HorizontalAlignment="Center" Foreground="White" FontSize="17" VerticalAlignment="Center" TextAlignment="Center" Text="复制验证码"></TextBlock>
 				</Button>
+				<Button Background="#436AF2" Command="{Binding RefreshCode}" HorizontalAlignment="Center" >
+					<TextBlock HorizontalAlignment="Center" Foreground="White" FontSize="17" VerticalAlignment="Center" TextAlignment="Center" Text="刷新验证码"></TextBlock>
+				</Button>
 			</StackPanel>
 		</StackPanel>
 

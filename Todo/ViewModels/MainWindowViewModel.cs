@@ -5,12 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Controls;
+using Microsoft.Graph;
 using ReactiveUI;
 using Todo.Apis;
 
 namespace Todo.ViewModels
 {
-    public class MainWindowViewModel : ViewModelBase
+    public partial class MainWindowViewModel : ViewModelBase
     {
 
         private bool _IsShowLeftMenu = false;
@@ -51,28 +52,69 @@ namespace Todo.ViewModels
         }
         public async Task Login()
         {
-            LoginButtonCanPressed = false;
+            try
+            {
+
+                LoginButtonCanPressed = false;
+                string scope = "offline_access;Tasks.ReadWrite;Tasks.ReadWrite.Shared";
+                string clientId = "b600f125-dd3b-4d5b-a331-0bc8007795b6";
+                GraphHelper.Initialize(clientId, scope.Split(";"), async (code, cancellation) => {
+                    UserCode = code.UserCode;
+                    IsGetCode = true;
+                    LoginTips = "3秒后将通过浏览器打开Microsoft账户授权页面\n请在页面中输入以下验证码";
+                    await Task.Delay(1000);
+                    LoginTips = "2秒后将通过浏览器打开Microsoft账户授权页面\n请在页面中输入以下验证码";
+                    await Task.Delay(1000);
+                    LoginTips = "1秒后将通过浏览器打开Microsoft账户授权页面\n请在页面中输入以下验证码";
+                    await Task.Delay(1000);
+                    LoginTips = "已复制验证码并通过浏览器打开Microsoft账户授权页面\n请在页面中输入以下验证码";
+                    var tc = new TextCopy.Clipboard();
+                    await tc.SetTextAsync(UserCode);
+                    Util.OpenBrowser(code.VerificationUri.ToString());
+                });
+                var accessToken = await GraphHelper.GetAccessTokenAsync(scope.Split(";"));
+                GlobalValue.Instance.AuthInfo = new AuthResponse() { AccessToken = accessToken };
+                LoginTips = "登录成功, 正在加载！";
+                var t1 = Task.Delay(1000);
+                var t2 = GetAllTaskList();
+                await t1;
+                await t2;
+                IsLogin = true;
+            } catch(Exception e)
+            {
+                Console.WriteLine(e.Message);
+                Console.WriteLine(e.StackTrace);
+            }
+        }
+        public User _user;
+
+        public async  Task RefreshCode()
+        {
             string scope = "offline_access;Tasks.ReadWrite;Tasks.ReadWrite.Shared";
             string clientId = "b600f125-dd3b-4d5b-a331-0bc8007795b6";
             GraphHelper.Initialize(clientId, scope.Split(";"), async (code, cancellation) => {
                 UserCode = code.UserCode;
-                IsGetCode = true;
-                LoginTips = "3秒后将通过浏览器打开Microsoft账户授权页面\n请在页面中输入以下验证码";
-                await Task.Delay(1000);
-                LoginTips = "2秒后将通过浏览器打开Microsoft账户授权页面\n请在页面中输入以下验证码";
-                await Task.Delay(1000);
-                LoginTips = "1秒后将通过浏览器打开Microsoft账户授权页面\n请在页面中输入以下验证码";
-                await Task.Delay(1000);
-                LoginTips = "已复制验证码并通过浏览器打开Microsoft账户授权页面\n请在页面中输入以下验证码";
-                var tc = new TextCopy.Clipboard();
-                await tc.SetTextAsync(UserCode);
-                Util.OpenBrowser(code.VerificationUri.ToString());
             });
-            var accessToken = await GraphHelper.GetAccessTokenAsync(scope.Split(";"));
-            GlobalValue.Instance.AuthInfo = new AuthResponse() { AccessToken = accessToken };
-            LoginTips = "登录成功！";
-            await Task.Delay(1000);
-            IsLogin = true;
+
+        }
+        public User User
+        {
+            get => _user;
+            set => this.RaiseAndSetIfChanged(ref _user, value);
+        }
+        public async Task GetAllTaskList()
+        {
+            User = await GraphHelper.GetUser();
+            
+            var lists = await GraphHelper.GetTaskLists();
+            List<TaskListInfo> list = new List<TaskListInfo>();
+            foreach(var item in lists)
+            {
+                list.Add(new TaskListInfo(item));
+            }
+            Menu = list;
+            
+
         }
         public int LogoWidth
         {

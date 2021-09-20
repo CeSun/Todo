@@ -12,6 +12,7 @@
 			Classes.LeftCanShow="{Binding CanSeeLeftMenu}"
 			Classes.LeftCannotShow="{Binding !CanSeeLeftMenu}" >
 			<component:MyOneDay></component:MyOneDay>
+			<component:Task></component:Task>
 			<Panel.Styles>
 				<Style Selector="Panel.LeftCanShow">
 					<Setter Property="Margin" Value="280 0 0 0"></Setter>
@@ -149,6 +150,6 @@
 				</Style>
 			</component:LeftMenu.Styles>
 		</component:LeftMenu>
-		<ProgressBar IsIndeterminate="False" VerticalAlignment="Top" Maximum="100" Minimum="0" Value="{Binding ProcessBarValue}" HorizontalAlignment="Stretch"></ProgressBar>
+		<ProgressBar IsVisible="False" IsIndeterminate="False" VerticalAlignment="Top" Maximum="100" Minimum="0" Value="{Binding ProcessBarValue}" HorizontalAlignment="Stretch"></ProgressBar>
 	</Grid>
 </UserControl>

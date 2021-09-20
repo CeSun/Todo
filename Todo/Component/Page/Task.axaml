@@ -1,0 +1,82 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="360" d:DesignHeight="750"
+             x:Class="Todo.Component.Task"
+			 Background="#5F74C3">
+	<DockPanel Margin="15" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+		<Button DockPanel.Dock="Top" IsVisible="{Binding !CanSeeLeftMenu}" Height="30" Width="34" Background="Transparent" Padding="4"
+                          Command="{Binding LeftMenuIn}">
+			<Canvas Classes="Down">
+				<Rectangle Canvas.Top="16" Fill="White" Height="1" Width="25"/>
+				<Rectangle Canvas.Top="10" Fill="White" Height="1" Width="25"/>
+				<Rectangle Canvas.Top="4" Fill="White" Height="1" Width="25"/>
+			</Canvas>
+		</Button>
+		<Panel DockPanel.Dock="Top" Margin="0 10 0 0" ></Panel>
+		<TextBlock DockPanel.Dock="Top" Foreground="White" FontSize="35" FontWeight="DemiBold" Text="{Binding TaskTitle}"></TextBlock>
+
+		
+		<Panel DockPanel.Dock="Top"  VerticalAlignment="Stretch" Margin="0 20 0 0">
+			<ScrollViewer  VerticalScrollBarVisibility="Auto" VerticalAlignment="Stretch">
+				<StackPanel>
+
+					<ItemsControl Items="{Binding UnDoneTasks}">
+						<ItemsControl.ItemTemplate>
+							<DataTemplate>
+								<Button Margin="0 2 0 2" Background="White" HorizontalAlignment="Stretch">
+									<DockPanel>
+										<CheckBox >
+
+										</CheckBox>
+										<TextBlock VerticalAlignment="Center" Text="{Binding Title}"></TextBlock>
+									</DockPanel>
+								</Button>
+							</DataTemplate>
+						</ItemsControl.ItemTemplate>
+					</ItemsControl>
+					<Panel Margin="5"/>
+					<Button Padding="5 2 5 2 " Command="{Binding OpenNoDoneTask}">
+						<StackPanel Orientation="Horizontal" >
+							<Grid Classes.Down="{Binding NoDoneTaskOpen}"
+								  Classes.Left="{Binding !NoDoneTaskOpen}"
+								  Width="20"
+								  Height="20">
+								<Canvas HorizontalAlignment="Center" VerticalAlignment="Center" Width="6" Height="12">
+									<Line StartPoint="0 0"  Stroke="White" StrokeThickness="1.5" Fill="White" EndPoint="6 6"></Line>
+									<Line StartPoint="0 12" Stroke="White" StrokeThickness="1.5" Fill="White" EndPoint="6 6"></Line>
+								</Canvas>
+								<Grid.Styles>
+									<Style Selector="Grid.Down">
+										<Setter Property="RenderTransform" Value="rotate(90deg)"/>
+									</Style>
+									<Style Selector="Grid.Left">
+										<Setter Property="RenderTransform" Value="rotate(0deg)"/>
+									</Style>
+								</Grid.Styles>
+							</Grid>
+							<TextBlock Foreground="White" FontSize="17" FontWeight="Light" Text="已完成"></TextBlock>
+							<TextBlock Foreground="White"  Margin="10 0 0 0" Opacity="0.8" FontSize="17" Text="{Binding DoneTasks.Count}"></TextBlock>
+						</StackPanel>
+					</Button>
+					<Panel Margin="5"/>
+					<ItemsControl IsVisible="{Binding NoDoneTaskOpen}" Items="{Binding DoneTasks}">
+						<ItemsControl.ItemTemplate>
+							<DataTemplate>
+								<Button Margin="0 2 0 2" Background="White" HorizontalAlignment="Stretch">
+									<DockPanel>
+										<CheckBox IsChecked="true">
+
+										</CheckBox>
+										<TextBlock VerticalAlignment="Center" Text="{Binding Title}"></TextBlock>
+									</DockPanel>
+								</Button>
+							</DataTemplate>
+						</ItemsControl.ItemTemplate>
+					</ItemsControl>
+				</StackPanel>
+			</ScrollViewer>
+		</Panel>
+	</DockPanel>
+</UserControl>
