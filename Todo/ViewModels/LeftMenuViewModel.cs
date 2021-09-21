@@ -1,4 +1,4 @@
-﻿using Microsoft.Graph;
+using Microsoft.Graph;
 using ReactiveUI;
 using System;
 using System.Collections.Generic;
@@ -26,8 +26,7 @@ namespace Todo.ViewModels
         private int _Index = 0;
 
         public List<TaskListInfo> tasklists = new List<TaskListInfo>();
-
-     
+        
         public List<TaskListInfo> Menu
         {
             get
@@ -48,6 +47,8 @@ namespace Todo.ViewModels
             }
             set 
             {
+                if (value < 0)
+                    return;
                 _ = OnLoadTaskList(Menu[value].info.Id, Menu[value].info.DisplayName);
                 this.RaiseAndSetIfChanged(ref _Index, value);
                 if (!CanSeeLeftMenu)
@@ -61,6 +62,25 @@ namespace Todo.ViewModels
         public void SelectedChanged()
         {
             Console.WriteLine("2");
+        }
+
+        public async Task NewTaskList()
+        {
+            int i = 1;
+            var Name = "";
+            while (true)
+            {
+                Name = "新增列表" + i;
+                if(Menu.Find(res => res.info.DisplayName == Name) == default)
+                {
+                    break;
+                }
+                i++;
+            }
+            _ = await GraphHelper.graphClient.Me.Todo.Lists
+            .Request()
+            .AddAsync(new TodoTaskList() { DisplayName= Name });
+            await GetAllTaskList();
         }
     }
 }

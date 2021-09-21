@@ -61,20 +61,20 @@ namespace Todo.ViewModels
                 GraphHelper.Initialize(clientId, scope.Split(";"), async (code, cancellation) => {
                     UserCode = code.UserCode;
                     IsGetCode = true;
-                    LoginTips = "3Ãëºó½«Í¨¹ıä¯ÀÀÆ÷´ò¿ªMicrosoftÕË»§ÊÚÈ¨Ò³Ãæ\nÇëÔÚÒ³ÃæÖĞÊäÈëÒÔÏÂÑéÖ¤Âë";
+                    LoginTips = "3ç§’åå°†é€šè¿‡æµè§ˆå™¨æ‰“å¼€Microsoftè´¦æˆ·æˆæƒé¡µé¢\nè¯·åœ¨é¡µé¢ä¸­è¾“å…¥ä»¥ä¸‹éªŒè¯ç ";
                     await Task.Delay(1000);
-                    LoginTips = "2Ãëºó½«Í¨¹ıä¯ÀÀÆ÷´ò¿ªMicrosoftÕË»§ÊÚÈ¨Ò³Ãæ\nÇëÔÚÒ³ÃæÖĞÊäÈëÒÔÏÂÑéÖ¤Âë";
+                    LoginTips = "2ç§’åå°†é€šè¿‡æµè§ˆå™¨æ‰“å¼€Microsoftè´¦æˆ·æˆæƒé¡µé¢\nè¯·åœ¨é¡µé¢ä¸­è¾“å…¥ä»¥ä¸‹éªŒè¯ç ";
                     await Task.Delay(1000);
-                    LoginTips = "1Ãëºó½«Í¨¹ıä¯ÀÀÆ÷´ò¿ªMicrosoftÕË»§ÊÚÈ¨Ò³Ãæ\nÇëÔÚÒ³ÃæÖĞÊäÈëÒÔÏÂÑéÖ¤Âë";
+                    LoginTips = "1ç§’åå°†é€šè¿‡æµè§ˆå™¨æ‰“å¼€Microsoftè´¦æˆ·æˆæƒé¡µé¢\nè¯·åœ¨é¡µé¢ä¸­è¾“å…¥ä»¥ä¸‹éªŒè¯ç ";
                     await Task.Delay(1000);
-                    LoginTips = "ÒÑ¸´ÖÆÑéÖ¤Âë²¢Í¨¹ıä¯ÀÀÆ÷´ò¿ªMicrosoftÕË»§ÊÚÈ¨Ò³Ãæ\nÇëÔÚÒ³ÃæÖĞÊäÈëÒÔÏÂÑéÖ¤Âë";
+                    LoginTips = "å·²å¤åˆ¶éªŒè¯ç å¹¶é€šè¿‡æµè§ˆå™¨æ‰“å¼€Microsoftè´¦æˆ·æˆæƒé¡µé¢\nè¯·åœ¨é¡µé¢ä¸­è¾“å…¥ä»¥ä¸‹éªŒè¯ç ";
                     var tc = new TextCopy.Clipboard();
                     await tc.SetTextAsync(UserCode);
                     Util.OpenBrowser(code.VerificationUri.ToString());
                 });
                 var accessToken = await GraphHelper.GetAccessTokenAsync(scope.Split(";"));
                 GlobalValue.Instance.AuthInfo = new AuthResponse() { AccessToken = accessToken };
-                LoginTips = "µÇÂ¼³É¹¦, ÕıÔÚ¼ÓÔØ£¡";
+                LoginTips = "ç™»å½•æˆåŠŸ, æ­£åœ¨åŠ è½½ï¼";
                 var t1 = Task.Delay(1000);
                 var t2 = GetAllTaskList();
                 await t1;
@@ -105,7 +105,6 @@ namespace Todo.ViewModels
         public async Task GetAllTaskList()
         {
             User = await GraphHelper.GetUser();
-            
             var lists = await GraphHelper.GetTaskLists();
             List<TaskListInfo> list = new List<TaskListInfo>();
             foreach(var item in lists)

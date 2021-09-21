@@ -16,6 +16,28 @@ namespace Todo.ViewModels
         ITodoTaskListTasksCollectionPage tasks;
         List<TodoTask> _UnDoneTasks;
         bool _ShowDoneTasks = true;
+
+        string _TitleColor = "#ffffff";
+        public string TitleColor
+        {
+            set
+            {
+                this.RaiseAndSetIfChanged(ref _TitleColor, value);
+            }
+            get
+            {
+                return _TitleColor;
+            }
+        }
+        public async Task TitleInputGetFocus()
+        {
+            TitleColor = "#5F74C3";
+        }
+        public async Task TitleInputLostFocus()
+        {
+            TitleColor = "#ffffff";
+
+        }
         public bool ShowDoneTasks
         {
             set
@@ -44,6 +66,10 @@ namespace Todo.ViewModels
         {
             set
             {
+                if (value == null || value.Count == 0)
+                    ShowDoneTasks = false;
+                else
+                    ShowDoneTasks = true;
                 this.RaiseAndSetIfChanged(ref _DoneTasks, value);
             }
             get
@@ -105,7 +131,7 @@ namespace Todo.ViewModels
             }
         }
 
-        bool _NoDoneTaskOpen = false;
+        bool _NoDoneTaskOpen = true;
 
         public bool NoDoneTaskOpen {
             set

@@ -1,16 +1,20 @@
 <Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
-        <OutputType>Exe</OutputType>
+        <OutputType>WinExe</OutputType>
         <TargetFramework>net5.0</TargetFramework>
         <Nullable>enable</Nullable>
-        <ApplicationIcon />
+        <ApplicationIcon>Assets\logo192.ico</ApplicationIcon>
         <StartupObject />
+        <Win32Resource />
+        <Authors>孙策</Authors>
+        <Company>SpackStudio</Company>
     </PropertyGroup>
     <ItemGroup>
         <Folder Include="Models\" />
         <AvaloniaResource Include="Assets\**" />
     </ItemGroup>
     <ItemGroup>
+      <None Remove="Assets\logo192.ico" />
       <None Remove="Assets\RE1Mu3b.png" />
       <None Remove="Assets\welcome-center.png" />
     </ItemGroup>

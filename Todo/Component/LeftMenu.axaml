@@ -10,7 +10,9 @@
              HorizontalAlignment="Stretch">
 
 		<DockPanel  VerticalAlignment="Stretch" >
-			<Button Margin="10" DockPanel.Dock="Top" IsVisible="{Binding !CanSeeLeftMenu}" Height="30" Width="34" Background="Transparent" Padding="4"
+
+			
+			<Button Margin="10 10 0 0" DockPanel.Dock="Top" IsVisible="{Binding !CanSeeLeftMenu}" Height="30" Width="34" Background="Transparent" Padding="4"
 					Command="{Binding LeftMenuOut}">
 				<Canvas >
 					<Rectangle Canvas.Top="16" Fill="Gray" Height="1" Width="25"/>
@@ -18,15 +20,15 @@
 					<Rectangle Canvas.Top="4" Fill="Gray" Height="1" Width="25"/>
 				</Canvas>
 			</Button>
-			<Panel DockPanel.Dock="Top"  VerticalAlignment="Top"  Margin="10"/>
 			<DockPanel Margin="10" DockPanel.Dock="Top" VerticalAlignment="Top" Height="40" >
 				<Image VerticalAlignment="Stretch" Source="/Assets/avalonia-logo.ico"> </Image>
 				<DockPanel Margin="5" Height="35">
 					<TextBlock DockPanel.Dock="Top" FontSize="16" FontWeight="Medium" Text="{Binding User.DisplayName}"/>
-					<TextBlock DockPanel.Dock="Bottom" Foreground="Gray" FontSize="12" Text="{Binding User.Mail}"/>
+					<TextBlock DockPanel.Dock="Bottom" Foreground="Gray" FontSize="12" Text="{Binding User.UserPrincipalName}"/>
 				</DockPanel>
 			</DockPanel>
 			<ScrollViewer DockPanel.Dock="Top"  VerticalAlignment="Stretch" >
+				<StackPanel>
 				<ListBox Items="{Binding Menu}"  SelectionMode="AlwaysSelected" SelectedIndex="{Binding Index}"  Background="Transparent">
 					
 					<ListBox.ItemTemplate>
@@ -42,9 +44,18 @@
 							</DockPanel>
 						</DataTemplate>
 					</ListBox.ItemTemplate>
-					
-					
 				</ListBox>
+				<Button Command="{Binding NewTaskList}" HorizontalAlignment="Stretch" Background="Transparent">
+
+					<DockPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+						<TextBlock TextAlignment="Center" FontSize="25" Text="+" DockPanel.Dock="Left" VerticalAlignment="Center">
+							
+						</TextBlock>
+
+						<TextBlock Margin="10 0 0 0" Foreground="#212121" DockPanel.Dock="Left" VerticalAlignment="Center" FontSize="19" Text="新建列表"></TextBlock>
+					</DockPanel>
+				</Button>
+			</StackPanel>
 			</ScrollViewer>
 		</DockPanel>
 	

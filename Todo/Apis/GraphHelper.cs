@@ -10,7 +10,7 @@ namespace Todo.Apis
     public class GraphHelper
     {
         private static DeviceCodeCredential tokenCredential;
-        private static GraphServiceClient graphClient;
+        public static GraphServiceClient graphClient;
 
         public static void Initialize(string clientId,
                                       string[] scopes,
@@ -45,5 +45,7 @@ namespace Todo.Apis
         {
             return await graphClient.Me.Request().GetAsync();
         }
+
+
     }
 }
