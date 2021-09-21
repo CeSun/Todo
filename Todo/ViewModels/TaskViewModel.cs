@@ -7,16 +7,57 @@ using System.Text;
 using System.Threading.Tasks;
 using Todo.Apis;
 
+
 namespace Todo.ViewModels
 {
+    public class MyTodoTask
+    {
+        MainWindowViewModel vm;
+        string listId;
+        public MyTodoTask(TodoTask a, string listId, MainWindowViewModel vm)
+        {
+            this.vm = vm;
+            this.listId = listId;
+            A = a;
+        }
+        public TodoTask A;
+        public string Title
+        {
+            get { return A.Title; }
+        }
+        public async Task Done()
+        {
+            A.Status = Microsoft.Graph.TaskStatus.Completed;
+            await GraphHelper.graphClient.Me.Todo.Lists[listId].Tasks[A.Id]
+            .Request()
+            .UpdateAsync(A);
+            await vm.OnLoadTaskList(vm.TaskListInfo);
+            Console.WriteLine("dONE");
+        }
 
+        public async Task UnDone()
+        {
+            A.Status = Microsoft.Graph.TaskStatus.NotStarted;
+            await GraphHelper.graphClient.Me.Todo.Lists[listId].Tasks[A.Id]
+            .Request()
+            .UpdateAsync(A);
+            await vm.OnLoadTaskList(vm.TaskListInfo);
+            Console.WriteLine("dONE");
+        }
 
+        public async Task UpdateTaskListName()
+        {
+
+        }
+    }
     public partial class MainWindowViewModel : ViewModelBase
     {
         ITodoTaskListTasksCollectionPage tasks;
-        List<TodoTask> _UnDoneTasks;
+        List<MyTodoTask> _UnDoneTasks;
         bool _ShowDoneTasks = true;
 
+
+       
         string _TitleColor = "#ffffff";
         public string TitleColor
         {
@@ -38,6 +79,11 @@ namespace Todo.ViewModels
             TitleColor = "#ffffff";
 
         }
+
+        public async Task DoneTask()
+        {
+            Console.WriteLine("??");
+        }
         public bool ShowDoneTasks
         {
             set
@@ -49,7 +95,7 @@ namespace Todo.ViewModels
                 return _ShowDoneTasks;
             }
         }
-        public List<TodoTask> UnDoneTasks
+        public List<MyTodoTask> UnDoneTasks
         {
             set
             {
@@ -60,9 +106,9 @@ namespace Todo.ViewModels
                 return _UnDoneTasks;
             }
         }
-        List<TodoTask> _DoneTasks;
+        List<MyTodoTask> _DoneTasks;
 
-        public List<TodoTask> DoneTasks
+        public List<MyTodoTask> DoneTasks
         {
             set
             {
@@ -78,24 +124,25 @@ namespace Todo.ViewModels
             }
         }
 
-
-        public async Task OnLoadTaskList(string id, string title)
+        public TaskListInfo TaskListInfo;
+        public async Task OnLoadTaskList(TaskListInfo info)
         {
             try
             {
-                TaskTitle = title;
-                var taskList = await GraphHelper.GetTaskList(id);
-                List<TodoTask> doneTasks = new List<TodoTask>();
-                List<TodoTask> undoneTasks = new List<TodoTask>();
+                this.TaskListInfo = info;
+                TaskTitle = info.info.DisplayName;
+                var taskList = await GraphHelper.GetTaskList(info.info.Id);
+                List<MyTodoTask> doneTasks = new List<MyTodoTask>();
+                List<MyTodoTask> undoneTasks = new List<MyTodoTask>();
 
                 foreach (var item in taskList)
                 {
                     if (item.Status == Microsoft.Graph.TaskStatus.Completed)
                     {
-                        doneTasks.Add(item);
+                        doneTasks.Add(new MyTodoTask(item, info.info.Id, this));
                     } else
                     {
-                        undoneTasks.Add(item);
+                        undoneTasks.Add(new MyTodoTask(item, info.info.Id, this));
                     }
                 }
                 UnDoneTasks = undoneTasks;
@@ -106,6 +153,36 @@ namespace Todo.ViewModels
                 Console.WriteLine(e.Message);
                 Console.WriteLine(e.StackTrace);
             }
+        }
+
+        public void MoveToUnDone(string id)
+        {
+            var item = DoneTasks.Find(res => res.A.Id == id);
+            if (item == null)
+                return;
+            var n = new List<MyTodoTask>();
+            var m = new List<MyTodoTask>();
+            n.AddRange(DoneTasks);
+            n.Remove(item);
+            DoneTasks = n;
+
+            m.AddRange(UnDoneTasks);
+            m.Add(item);
+            UnDoneTasks = m;
+        }
+        public void MoveToDone(string id)
+        {
+            var item = UnDoneTasks.Find(res => res.A.Id == id);
+            if (item == null)
+                return;
+            var n = new List<MyTodoTask>();
+            var m = new List<MyTodoTask>();
+            n.AddRange(UnDoneTasks);
+            n.Remove(item);
+            UnDoneTasks = n;
+            m.AddRange(DoneTasks);
+            m.Add(item);
+            DoneTasks = m;
         }
         public ITodoTaskListTasksCollectionPage todoTasks
         {
@@ -146,6 +223,16 @@ namespace Todo.ViewModels
         public void OpenNoDoneTask()
         {
             NoDoneTaskOpen = !NoDoneTaskOpen;
+        }
+
+        public async Task ChangeTaskListName(string name)
+        {
+            TaskListInfo.info.DisplayName = name;
+
+            await GraphHelper.graphClient.Me.Todo.Lists[TaskListInfo.info.Id]
+            .Request()
+            .UpdateAsync(TaskListInfo.info);
+            await OnLoadTaskList(TaskListInfo);
         }
     }
 }

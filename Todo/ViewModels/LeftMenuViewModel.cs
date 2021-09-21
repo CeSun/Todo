@@ -49,7 +49,7 @@ namespace Todo.ViewModels
             {
                 if (value < 0)
                     return;
-                _ = OnLoadTaskList(Menu[value].info.Id, Menu[value].info.DisplayName);
+                _ = OnLoadTaskList(Menu[value]);
                 this.RaiseAndSetIfChanged(ref _Index, value);
                 if (!CanSeeLeftMenu)
                     LeftMenuOut();

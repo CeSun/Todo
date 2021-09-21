@@ -24,7 +24,6 @@ namespace Todo.Apis
         {
             var context = new TokenRequestContext(scopes);
             var response = await tokenCredential.GetTokenAsync(context);
-           
             return response.Token;
         }
 
