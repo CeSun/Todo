@@ -27,22 +27,30 @@ namespace Todo.ViewModels
         }
         public async Task Done()
         {
+            vm.LoadTaskIter++;
+            vm.MoveToDone(A.Id);
             A.Status = Microsoft.Graph.TaskStatus.Completed;
             await GraphHelper.graphClient.Me.Todo.Lists[listId].Tasks[A.Id]
             .Request()
             .UpdateAsync(A);
             await vm.OnLoadTaskList(vm.TaskListInfo);
-            Console.WriteLine("dONE");
+            vm.LoadTaskIter--;
         }
 
+        public async Task OpenTask()
+        {
+            vm.RightMenuIn();
+        }
         public async Task UnDone()
         {
+            vm.LoadTaskIter++;
+            vm.MoveToUnDone(A.Id);
             A.Status = Microsoft.Graph.TaskStatus.NotStarted;
             await GraphHelper.graphClient.Me.Todo.Lists[listId].Tasks[A.Id]
             .Request()
             .UpdateAsync(A);
             await vm.OnLoadTaskList(vm.TaskListInfo);
-            Console.WriteLine("dONE");
+            vm.LoadTaskIter--;
         }
 
         public async Task UpdateTaskListName()
@@ -125,6 +133,8 @@ namespace Todo.ViewModels
         }
 
         public TaskListInfo TaskListInfo;
+
+        public int LoadTaskIter = 0;
         public async Task OnLoadTaskList(TaskListInfo info)
         {
             try
@@ -134,7 +144,10 @@ namespace Todo.ViewModels
                 var taskList = await GraphHelper.GetTaskList(info.info.Id);
                 List<MyTodoTask> doneTasks = new List<MyTodoTask>();
                 List<MyTodoTask> undoneTasks = new List<MyTodoTask>();
-
+                if (LoadTaskIter > 1)
+                {
+                    return;
+                }
                 foreach (var item in taskList)
                 {
                     if (item.Status == Microsoft.Graph.TaskStatus.Completed)
@@ -234,5 +247,6 @@ namespace Todo.ViewModels
             .UpdateAsync(TaskListInfo.info);
             await OnLoadTaskList(TaskListInfo);
         }
+
     }
 }

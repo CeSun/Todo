@@ -3,6 +3,7 @@ using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Markup.Xaml;
 using System;
+using Todo.Apis;
 using Todo.ViewModels;
 
 namespace Todo.Component
@@ -22,8 +23,19 @@ namespace Todo.Component
                     vm.ChangeTaskListName(TitleBox.Text);
                 }    
             }, handledEventsToo: true);
-
-
+            var TaskAddBox = this.FindControl<TextBox>("AddTask");
+            TaskAddBox.AddHandler(KeyDownEvent, async (s, e) =>
+            {
+                if (e.Key == Key.Enter)
+                {
+                    panel.Focus();
+                    var TaskTitle = TaskAddBox.Text;
+                    var vm = (MainWindowViewModel)DataContext;
+                    await GraphHelper.AddTask(TaskTitle, vm.TaskListInfo.info.Id);
+                    await vm.OnLoadTaskList(vm.TaskListInfo);
+                    TaskAddBox.Text = "";
+                }
+            }, handledEventsToo: true);
             panel.AddHandler(PointerPressedEvent, (sender, e) =>
             {
                 var point = e.GetPosition(null);

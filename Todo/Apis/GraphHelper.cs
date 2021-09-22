@@ -45,6 +45,12 @@ namespace Todo.Apis
             return await graphClient.Me.Request().GetAsync();
         }
 
+        public static async Task AddTask(string TaskTitle, string id)
+        {
+            var todoTask = new TodoTask
+            {Title = TaskTitle,};
+            await graphClient.Me.Todo.Lists[id].Tasks.Request().AddAsync(todoTask);
+        }
 
     }
 }

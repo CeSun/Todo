@@ -2,12 +2,49 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             mc:Ignorable="d" d:DesignWidth="350" d:DesignHeight="750"
              x:Class="Todo.Component.TaskDetail"
              Width="360"
              HorizontalAlignment="Right"
-             
-             Background="White"
+             Background="#F5F5F5"
              BorderBrush="Gray" BorderThickness="1 0 0 0">
-    Welcome to Avalonia!
+           
+	<Grid>
+		<StackPanel>
+		<StackPanel VerticalAlignment="Top" Background="White"  HorizontalAlignment="Stretch">
+			<StackPanel Margin="5 10 0 0" Orientation="Horizontal">
+				<CheckBox Margin="10 0 10 0" VerticalAlignment="Center" ></CheckBox>
+				<TextBox VerticalAlignment="Center" FontWeight="ExtraBold" Text="任务" Padding="0" BorderThickness="0" Background="Transparent" FontSize="25" ></TextBox>
+			</StackPanel>
+			
+			<StackPanel Margin="5 10 0 0" Orientation="Horizontal">
+				<CheckBox Margin="10 0 10 0" VerticalAlignment="Center" >
+					<CheckBox.Styles>
+						<Style  Selector="CheckBox">
+							<Setter Property="RenderTransform" Value="scale(0.8)"/>
+						</Style>
+					</CheckBox.Styles>
+				</CheckBox>
+				<TextBox VerticalAlignment="Center" Text="步骤1" Padding="0" BorderThickness="0" Background="Transparent" FontSize="18" ></TextBox>
+			</StackPanel>
+			<Panel Height="10"/>
+		</StackPanel>
+			<Panel Margin="0 20 0 20" Background="White">
+				<TextBox Padding="10" BorderThickness="0" AcceptsReturn="True" MinHeight="80">
+				
+				</TextBox>
+			</Panel>
+		</StackPanel>
+		
+		<Grid Background="White" VerticalAlignment="Bottom" Height="55" HorizontalAlignment="Stretch" >
+			<Button HorizontalAlignment="Left" Command="{Binding RightMenuOut}" Background="Transparent" Margin="10 0 0 0" Height="45" Width="45">
+				<Image Source="/Assets/right.png" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"></Image>
+			</Button>
+			<TextBlock Foreground="#737373" HorizontalAlignment="Center" FontSize="16" VerticalAlignment="Center" Text="创建于 8月26日，周四"></TextBlock>
+			<Button HorizontalAlignment="Right" Background="Transparent" Margin="0 0 5 0" Height="45" Width="45">
+				<Image Source="/Assets/delete.png" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center"></Image>
+			</Button>
+		</Grid>
+	</Grid>
+            
 </UserControl>

@@ -10,8 +10,6 @@
              HorizontalAlignment="Stretch">
 
 		<DockPanel  VerticalAlignment="Stretch" >
-
-			
 			<Button Margin="10 10 0 0" DockPanel.Dock="Top" IsVisible="{Binding !CanSeeLeftMenu}" Height="30" Width="34" Background="Transparent" Padding="4"
 					Command="{Binding LeftMenuOut}">
 				<Canvas >
@@ -22,7 +20,7 @@
 			</Button>
 			<DockPanel Margin="10" DockPanel.Dock="Top" VerticalAlignment="Top" Height="40" >
 				<Image VerticalAlignment="Stretch" Source="/Assets/avalonia-logo.ico"> </Image>
-				<DockPanel Margin="5" Height="35">
+				<DockPanel Margin="5" Height="40">
 					<TextBlock DockPanel.Dock="Top" FontSize="16" FontWeight="Medium" Text="{Binding User.DisplayName}"/>
 					<TextBlock DockPanel.Dock="Bottom" Foreground="Gray" FontSize="12" Text="{Binding User.UserPrincipalName}"/>
 				</DockPanel>

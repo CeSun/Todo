@@ -14,8 +14,10 @@
         <AvaloniaResource Include="Assets\**" />
     </ItemGroup>
     <ItemGroup>
+      <None Remove="Assets\delete.png" />
       <None Remove="Assets\logo192.ico" />
       <None Remove="Assets\RE1Mu3b.png" />
+      <None Remove="Assets\right.png" />
       <None Remove="Assets\welcome-center.png" />
     </ItemGroup>
     <ItemGroup>
