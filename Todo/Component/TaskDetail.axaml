@@ -13,8 +13,10 @@
 		<StackPanel>
 		<StackPanel VerticalAlignment="Top" Background="White"  HorizontalAlignment="Stretch">
 			<StackPanel Margin="5 10 0 0" Orientation="Horizontal">
-				<CheckBox Margin="10 0 10 0" VerticalAlignment="Center" ></CheckBox>
-				<TextBox VerticalAlignment="Center" FontWeight="ExtraBold" Text="任务" Padding="0" BorderThickness="0" Background="Transparent" FontSize="25" ></TextBox>
+				<CheckBox Command="{Binding DoneThisTask}" IsChecked="{Binding TaskIsDone}"
+				Margin="10 0 10 0" VerticalAlignment="Center" >
+				</CheckBox>
+				<TextBox VerticalAlignment="Center" FontWeight="ExtraBold" Text="{Binding SingleTaskTitle}" Padding="0" BorderThickness="0" Background="Transparent" FontSize="25" ></TextBox>
 			</StackPanel>
 			
 			<StackPanel Margin="5 10 0 0" Orientation="Horizontal">
@@ -27,10 +29,16 @@
 				</CheckBox>
 				<TextBox VerticalAlignment="Center" Text="步骤1" Padding="0" BorderThickness="0" Background="Transparent" FontSize="18" ></TextBox>
 			</StackPanel>
+
+			<StackPanel Margin="5 10 0 0" Orientation="Horizontal">
+				<TextBlock Margin="10 0 10 0" Foreground="#5F74C3" FontSize="35" Text="+" FontWeight="UltraBlack"></TextBlock>
+				<TextBox VerticalAlignment="Center" Watermark="下一步" Foreground="#5F74C3" Padding="0" BorderThickness="0" Background="Transparent" FontSize="18" ></TextBox>
+			</StackPanel>
+			
 			<Panel Height="10"/>
 		</StackPanel>
 			<Panel Margin="0 20 0 20" Background="White">
-				<TextBox Padding="10" BorderThickness="0" AcceptsReturn="True" MinHeight="80">
+				<TextBox Padding="10" Text="{Binding TaskContent}"  Watermark="请输入备注" BorderThickness="0" AcceptsReturn="True" MinHeight="80">
 				
 				</TextBox>
 			</Panel>
@@ -40,8 +48,8 @@
 			<Button HorizontalAlignment="Left" Command="{Binding RightMenuOut}" Background="Transparent" Margin="10 0 0 0" Height="45" Width="45">
 				<Image Source="/Assets/right.png" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"></Image>
 			</Button>
-			<TextBlock Foreground="#737373" HorizontalAlignment="Center" FontSize="16" VerticalAlignment="Center" Text="创建于 8月26日，周四"></TextBlock>
-			<Button HorizontalAlignment="Right" Background="Transparent" Margin="0 0 5 0" Height="45" Width="45">
+			<TextBlock Foreground="#737373" HorizontalAlignment="Center" FontSize="16" VerticalAlignment="Center" Text="{Binding TaskCreatedTime}"></TextBlock>
+			<Button Command="{Binding DeleteTask}" HorizontalAlignment="Right" Background="Transparent" Margin="0 0 5 0" Height="45" Width="45">
 				<Image Source="/Assets/delete.png" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center"></Image>
 			</Button>
 		</Grid>

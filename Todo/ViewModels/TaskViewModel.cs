@@ -40,6 +40,23 @@ namespace Todo.ViewModels
         public async Task OpenTask()
         {
             vm.RightMenuIn();
+            vm.SingleTaskTitle = A.Title;
+            vm.TaskContent = A.Body.Content;
+            vm.TaskIsDone = A.Status == Microsoft.Graph.TaskStatus.Completed;
+            vm.TaskCreatedTime = A.CreatedDateTime?.ToString("创建于 yyyy-MM-dd");
+            vm.singleTodoTask = A;
+
+            Console.WriteLine("--------");
+            foreach (var item in vm.singleTodoTask.Extensions)
+            {
+                Console.WriteLine(item);
+            }
+            Console.WriteLine("--------");
+            foreach (var item in vm.singleTodoTask.LinkedResources)
+            {
+                Console.WriteLine(item);
+            }
+            Console.WriteLine("--------");
         }
         public async Task UnDone()
         {
@@ -51,6 +68,7 @@ namespace Todo.ViewModels
             .UpdateAsync(A);
             await vm.OnLoadTaskList(vm.TaskListInfo);
             vm.LoadTaskIter--;
+            
         }
 
         public async Task UpdateTaskListName()
@@ -58,14 +76,28 @@ namespace Todo.ViewModels
 
         }
     }
+
+    public class TaskDetail
+    {
+        public TodoTask todoTask;
+        public TaskDetail(TodoTask todoTask)
+        {
+            this.todoTask = todoTask;
+        }
+
+        public string Title { get { return todoTask.Title; } }
+
+        public string Detail { get { return todoTask.Body.Content; } }
+    }
     public partial class MainWindowViewModel : ViewModelBase
     {
+        public TodoTask singleTodoTask;
         ITodoTaskListTasksCollectionPage tasks;
         List<MyTodoTask> _UnDoneTasks;
         bool _ShowDoneTasks = true;
 
-
-       
+        public TaskDetail taskDetail;
+      
         string _TitleColor = "#ffffff";
         public string TitleColor
         {
