@@ -9,17 +9,17 @@
              Background="#F5F5F5"
              BorderBrush="Gray" BorderThickness="1 0 0 0">
            
-	<Grid>
+	<Grid x:Name="Background">
 		<StackPanel>
 		<StackPanel VerticalAlignment="Top" Background="White"  HorizontalAlignment="Stretch">
 			<StackPanel Margin="5 10 0 0" Orientation="Horizontal">
 				<CheckBox Command="{Binding DoneThisTask}" IsChecked="{Binding TaskIsDone}"
 				Margin="10 0 10 0" VerticalAlignment="Center" >
 				</CheckBox>
-				<TextBox VerticalAlignment="Center" FontWeight="ExtraBold" Text="{Binding SingleTaskTitle}" Padding="0" BorderThickness="0" Background="Transparent" FontSize="25" ></TextBox>
+				<TextBox x:Name="TaskName" VerticalAlignment="Center" FontWeight="ExtraBold" Text="{Binding SingleTaskTitle}" Padding="0" BorderThickness="0" Background="Transparent" FontSize="25" ></TextBox>
 			</StackPanel>
 			
-			<StackPanel Margin="5 10 0 0" Orientation="Horizontal">
+			<StackPanel IsVisible="False" Margin="5 10 0 0" Orientation="Horizontal">
 				<CheckBox Margin="10 0 10 0" VerticalAlignment="Center" >
 					<CheckBox.Styles>
 						<Style  Selector="CheckBox">
@@ -27,10 +27,10 @@
 						</Style>
 					</CheckBox.Styles>
 				</CheckBox>
-				<TextBox VerticalAlignment="Center" Text="步骤1" Padding="0" BorderThickness="0" Background="Transparent" FontSize="18" ></TextBox>
+				<TextBox  VerticalAlignment="Center" Text="步骤1" Padding="0" BorderThickness="0" Background="Transparent" FontSize="18" ></TextBox>
 			</StackPanel>
 
-			<StackPanel Margin="5 10 0 0" Orientation="Horizontal">
+			<StackPanel IsVisible="False" Margin="5 10 0 0" Orientation="Horizontal">
 				<TextBlock Margin="10 0 10 0" Foreground="#5F74C3" FontSize="35" Text="+" FontWeight="UltraBlack"></TextBlock>
 				<TextBox VerticalAlignment="Center" Watermark="下一步" Foreground="#5F74C3" Padding="0" BorderThickness="0" Background="Transparent" FontSize="18" ></TextBox>
 			</StackPanel>
@@ -38,7 +38,7 @@
 			<Panel Height="10"/>
 		</StackPanel>
 			<Panel Margin="0 20 0 20" Background="White">
-				<TextBox Padding="10" Text="{Binding TaskContent}"  Watermark="请输入备注" BorderThickness="0" AcceptsReturn="True" MinHeight="80">
+				<TextBox Padding="10" x:Name="TaskContent" Text="{Binding TaskContent}"  Watermark="请输入备注" BorderThickness="0" AcceptsReturn="True" MinHeight="80">
 				
 				</TextBox>
 			</Panel>

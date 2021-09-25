@@ -15,33 +15,50 @@ namespace Todo.Component
             InitializeComponent();
             var panel = this.FindControl<DockPanel>("MainPanel");
             var TitleBox = this.FindControl<TextBox>("TitleBox");
-            TitleBox.AddHandler(KeyDownEvent, (s, e) => {
-                if (e.Key == Key.Enter)
+            TitleBox.AddHandler(LostFocusEvent, (s, e) => {
+                var vm = (MainWindowViewModel)DataContext;
+                if (TitleBox.Text == null || TitleBox.Text.Trim() == "")
                 {
-                    panel.Focus();
-                    var vm = (MainWindowViewModel)DataContext;
-                    vm.ChangeTaskListName(TitleBox.Text);
-                }    
+                    TitleBox.Text = vm.TaskListInfo.info.DisplayName;
+                    return;
+                }
+                vm.ChangeTaskListName(TitleBox.Text);
             }, handledEventsToo: true);
             var TaskAddBox = this.FindControl<TextBox>("AddTask");
+            TaskAddBox.AddHandler(LostFocusEvent, async (s, e) =>
+            {
+                if (TaskAddBox.Text == null || TaskAddBox.Text.Trim() == "")
+                {
+                    return;
+                }
+                var TaskTitle = TaskAddBox.Text;
+                var vm = (MainWindowViewModel)DataContext;
+                await GraphHelper.AddTask(TaskTitle, vm.TaskListInfo.info.Id);
+                await vm.OnLoadTaskList(vm.TaskListInfo);
+                TaskAddBox.Text = "";
+             
+            }, handledEventsToo: true);
             TaskAddBox.AddHandler(KeyDownEvent, async (s, e) =>
             {
                 if (e.Key == Key.Enter)
                 {
                     panel.Focus();
-                    var TaskTitle = TaskAddBox.Text;
-                    var vm = (MainWindowViewModel)DataContext;
-                    await GraphHelper.AddTask(TaskTitle, vm.TaskListInfo.info.Id);
-                    await vm.OnLoadTaskList(vm.TaskListInfo);
-                    TaskAddBox.Text = "";
                 }
             }, handledEventsToo: true);
+            TitleBox.AddHandler(KeyDownEvent, async (s, e) =>
+            {
+
+                if (e.Key == Key.Enter)
+                {
+                    panel.Focus();
+                }
+            }, handledEventsToo: true);
+
             panel.AddHandler(PointerPressedEvent, (sender, e) =>
             {
-                var point = e.GetPosition(null);
-                Console.WriteLine("!!");
-                // panel.Focus();
-            }, handledEventsToo: true);
+                Console.WriteLine("!!!!");
+                panel.Focus();
+            }, Avalonia.Interactivity.RoutingStrategies.Tunnel, handledEventsToo: true);
 
 
         }

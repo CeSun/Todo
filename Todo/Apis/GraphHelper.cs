@@ -12,21 +12,34 @@ namespace Todo.Apis
         private static DeviceCodeCredential tokenCredential;
         public static GraphServiceClient graphClient;
 
-        public static void Initialize(string clientId,
+        public static async Task Initialize(string clientId,
                                       string[] scopes,
                                       Func<DeviceCodeInfo, CancellationToken, Task> callBack)
         {
             tokenCredential = new DeviceCodeCredential(callBack, "common", clientId);
             graphClient = new GraphServiceClient(tokenCredential, scopes);
+            var context = new TokenRequestContext(scopes);
+            await tokenCredential.GetTokenAsync(context);
         }
 
         public static async Task<string> GetAccessTokenAsync(string[] scopes)
         {
             var context = new TokenRequestContext(scopes);
             var response = await tokenCredential.GetTokenAsync(context);
+            
             return response.Token;
         }
 
+
+        public static async Task LoginAsync(string UserName, string Password)
+        {
+            var scopes = new[] { "Tasks.ReadWrite" };
+            var cre = new UsernamePasswordCredential(UserName, Password, "common", "b600f125-dd3b-4d5b-a331-0bc8007795b6");
+            graphClient = new GraphServiceClient(cre, scopes);
+            var context = new TokenRequestContext(scopes);
+            var response = await cre.GetTokenAsync(context);
+           
+        }
         public static async Task<ITodoListsCollectionPage> GetTaskLists()
         {
             var lists=  await graphClient.Me.Todo.Lists.Request().GetAsync();

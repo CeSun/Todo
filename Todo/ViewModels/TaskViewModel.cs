@@ -46,17 +46,6 @@ namespace Todo.ViewModels
             vm.TaskCreatedTime = A.CreatedDateTime?.ToString("创建于 yyyy-MM-dd");
             vm.singleTodoTask = A;
 
-            Console.WriteLine("--------");
-            foreach (var item in vm.singleTodoTask.Extensions)
-            {
-                Console.WriteLine(item);
-            }
-            Console.WriteLine("--------");
-            foreach (var item in vm.singleTodoTask.LinkedResources)
-            {
-                Console.WriteLine(item);
-            }
-            Console.WriteLine("--------");
         }
         public async Task UnDone()
         {
@@ -273,11 +262,18 @@ namespace Todo.ViewModels
         public async Task ChangeTaskListName(string name)
         {
             TaskListInfo.info.DisplayName = name;
-
             await GraphHelper.graphClient.Me.Todo.Lists[TaskListInfo.info.Id]
             .Request()
             .UpdateAsync(TaskListInfo.info);
             await OnLoadTaskList(TaskListInfo);
+        }
+
+        public async Task DeleteTaskList()
+        {
+            await GraphHelper.graphClient.Me.Todo.Lists[TaskListInfo.info.Id]
+           .Request()
+           .DeleteAsync();
+            await GetAllTaskList();
         }
 
     }
